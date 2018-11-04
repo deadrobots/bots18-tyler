@@ -4,6 +4,7 @@ from wallaby import *
 import constants as c
 import actions as a
 import servo as s
+import constants as c
 # Great work so far, Tyler!
 # Next up, let's put your constants and motor functions in different files. Try using the following structure:
 # constants.py (holds your constants!)
@@ -13,7 +14,7 @@ import servo as s
 # main.py (where everything starts!)
 # You're ready to move on. Try grabbing the can from off the line!
 # -LMB
-#adsf test
+#adsf test asdfasdf
 
 def main():
     print "Hello"
@@ -21,20 +22,35 @@ def main():
     a.warmUp()
     while True:
         camera_update()
-        print get_object_count(c.green)
-        if get_object_count(c.green) > 0:
-            if get_object_center_x(c.green, 0) < get_camera_width()/2-5:
+        print get_object_count(c.coke)
+        if get_object_count(c.coke) > 0:
+            if get_object_center_x(c.coke, 0) < get_camera_width()/2-5:
                 motor(c.lmotor, -10)
                 motor(c.rmotor, 10)
-            elif get_object_center_x(c.green, 0) > get_camera_width()/2+5:
+            elif get_object_center_x(c.coke, 0) > get_camera_width()/2+5:
                 motor(c.lmotor, 10)
                 motor(c.rmotor, -10)
             else:
-                motor(c.lmotor, 50)
-                motor(c.rmotor, 50)
-                print "Victory!"
-                msleep(1500)
+                motor(c.lmotor, 60) #Somewhere in here is causing me to spin in circles forever and i dont know what
+                motor(c.rmotor, 60)
+                msleep(4000)
+                while not left_button():
+                    pass
+                s.closedClaw()
+                s.highArm()
+                msleep(100)
+                motor(c.lmotor, 100)
+                motor(c.rmotor, 20)
+                msleep(1000)
+                motor(c.lmotor, 100)
+                motor(c.rmotor, 100)
+                msleep(2000)
+                s.lowArm()
+                s.openClaw()
+                print "Victory"
                 break
+
+
 
 
 
